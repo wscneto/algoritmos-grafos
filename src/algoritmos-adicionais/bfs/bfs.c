@@ -12,10 +12,24 @@ typedef struct Queue
 Queue* createQueue(unsigned capacity)
 {
     Queue* queue = malloc(sizeof(Queue));
+
+    if(!queue)
+    {
+        printf("Erro na alocação de memória para fila (queue).");
+        exit(EXIT_FAILURE);
+    }
+
     queue->capacity = capacity;
     queue->front = queue->size = 0;
     queue->rear = capacity - 1;
     queue->array = malloc(queue->capacity * sizeof(int));
+
+    if(!queue->array)
+    {
+        printf("Erro na alocação de memória para array da fila (queue).");
+        exit(EXIT_FAILURE);
+    }
+
     return queue;
 }
 
@@ -31,7 +45,7 @@ int isEmpty(Queue* queue)
 
 void enqueue(Queue* queue, int item)
 {
-    if (isFull(queue)) return;
+    if(isFull(queue)) return;
 
     queue->rear = (queue->rear + 1) % queue->capacity;
     queue->array[queue->rear] = item;
@@ -40,7 +54,7 @@ void enqueue(Queue* queue, int item)
 
 int dequeue(Queue* queue)
 {
-    if (isEmpty(queue)) return -1;
+    if(isEmpty(queue)) return -1;
 
     int item = queue->array[queue->front];
     queue->front = (queue->front + 1) % queue->capacity;
@@ -55,6 +69,13 @@ void printBFSTree(int* parent, int numVertices, int startVertex)
     printf("Raíz: %d\n", startVertex);
     
     int* depth = calloc(numVertices, sizeof(int));
+
+    if(!depth)
+    {
+        printf("Erro na alocação de memória para depth.");
+        exit(EXIT_FAILURE);
+    }
+
     depth[startVertex] = 0;
     
     for(int i = 0; i < numVertices; i++)
@@ -109,8 +130,21 @@ void BFS(Graph* graph, int startVertex)
     Queue* queue = createQueue(graph->numVertices);
     
     int* visited = calloc(graph->numVertices, sizeof(int));
+
+    if(!visited)
+    {
+        printf("Erro na alocação de memória para visited.");
+        exit(EXIT_FAILURE);
+    }
     
     int* parent = malloc(graph->numVertices * sizeof(int));
+
+    if(!parent)
+    {
+        printf("Erro na alocação de memória para parent.");
+        exit(EXIT_FAILURE);
+    }
+
     for(int i = 0; i < graph->numVertices; i++)
     {
         parent[i] = -1;
