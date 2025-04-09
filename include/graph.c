@@ -78,7 +78,7 @@ void addEdge(Graph* graph, int src, int dest)
 
 void printGraph(Graph* graph)
 {
-    printf("Vertex: Adjacency List\n");
+    printf("Vértice: Lista de adjacência\n");
     for(int v = 0; v < graph->numVertices; v++)
     {
         Vertex* temp = graph->adjLists[v];
