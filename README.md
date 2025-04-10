@@ -4,8 +4,8 @@
 
 <h3><strong>Equipe:</strong></h3>
 <ul>
-    <li><h3>John Wallex</h3></li>
-    <li><h3>Walter Soares Costa Neto</h3></li>
+    <li>John Wallex Kennedy Moreira Silva</li>
+    <li>Walter Soares Costa Neto</li>
 </ul>
 
 <p>Implementação de 5 algoritmos de grafos em C. Requisitado pela disciplina de Teoria dos Grafos.</p>
