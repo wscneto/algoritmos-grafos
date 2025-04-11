@@ -129,7 +129,8 @@ void BFS(Graph* graph, int startVertex)
 
 int main()
 {
-    Graph* graph = createGraph(5, 0);
+    // Cria grafo com 5 vértices.
+    Graph* graph = createGraph(5);
     
     addEdge(graph, 0, 1);
     addEdge(graph, 0, 2);

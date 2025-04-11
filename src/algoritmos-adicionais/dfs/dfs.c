@@ -51,8 +51,8 @@ void DFS(Graph* graph, int startVertex)
 
 int main()
 {
-    // Cria grafo não direcionado com 5 vértices.
-    Graph* graph = createGraph(5, 0);
+    // Cria grafo com 5 vértices.
+    Graph* graph = createGraph(5);
     
     addEdge(graph, 0, 1);
     //addEdge(graph, 0, 2);

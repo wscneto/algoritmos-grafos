@@ -36,7 +36,7 @@ void deleteGraph(Graph* graph)
     free(graph);
 }
 
-Graph* createGraph(int numVertices, int isDirected)
+Graph* createGraph(int numVertices)
 {
     Graph* graph = malloc(sizeof(Graph));
     if(!graph)
@@ -45,7 +45,6 @@ Graph* createGraph(int numVertices, int isDirected)
         exit(EXIT_FAILURE);
     }
     graph->numVertices = numVertices;
-    graph->isDirected = isDirected;
     graph->adjLists = malloc(numVertices * sizeof(Vertex*));
     if(!graph->adjLists)
     {
@@ -67,13 +66,6 @@ void addEdge(Graph* graph, int src, int dest)
     Vertex* newVertex = createVertex(dest);
     newVertex->next = graph->adjLists[src];
     graph->adjLists[src] = newVertex;
-
-    if(!graph->isDirected)
-    {
-        newVertex = createVertex(src);
-        newVertex->next = graph->adjLists[dest];
-        graph->adjLists[dest] = newVertex;
-    }
 }
 
 void printGraph(Graph* graph)
