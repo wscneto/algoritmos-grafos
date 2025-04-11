@@ -11,12 +11,13 @@ typedef struct Vertex
 typedef struct Graph
 {
     int numVertices;
+    int numEdges;
     struct Vertex** adjLists;
 } Graph;
 
 // FUNCTIONS:
 Vertex* createVertex(int v);
-Graph* createGraph(int numVertices);
+Graph* createGraph(int numVertices, int numEdges);
 void deleteGraph(Graph* graph);
 void addEdge(Graph* graph, int src, int dest);
 void printGraph(Graph* graph);

@@ -36,7 +36,7 @@ void deleteGraph(Graph* graph)
     free(graph);
 }
 
-Graph* createGraph(int numVertices)
+Graph* createGraph(int numVertices, int numEdges)
 {
     Graph* graph = malloc(sizeof(Graph));
     if(!graph)
@@ -45,6 +45,7 @@ Graph* createGraph(int numVertices)
         exit(EXIT_FAILURE);
     }
     graph->numVertices = numVertices;
+    graph->numEdges = numEdges;
     graph->adjLists = malloc(numVertices * sizeof(Vertex*));
     if(!graph->adjLists)
     {

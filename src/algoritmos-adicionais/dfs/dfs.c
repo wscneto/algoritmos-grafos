@@ -51,15 +51,25 @@ void DFS(Graph* graph, int startVertex)
 
 int main()
 {
-    // Cria grafo com 5 vértices.
-    Graph* graph = createGraph(5);
+    int numVertices, numEdges;
+
+    printf("Digite o número de vértices: ");
+    scanf("%d", &numVertices);
     
-    addEdge(graph, 0, 1);
-    //addEdge(graph, 0, 2);
-    addEdge(graph, 0, 3);
-    addEdge(graph, 1, 3);
-    addEdge(graph, 2, 4);
-    //addEdge(graph, 3, 4);
+    printf("Digite o número de arestas: ");
+    scanf("%d", &numEdges);
+
+    // Cria grafo com 'numVertices' vértices e 'numEdges' arestas.
+    Graph* graph = createGraph(numVertices, numEdges);
+    
+    for(int i = 0; i < numEdges; i++)
+    {
+        int src, dest;
+        printf("Digite os vértices que compõem a %dª aresta: ", i + 1);
+        scanf("%d %d", &src, &dest);
+
+        addEdge(graph, src, dest);
+    }
     
     printGraph(graph);
     
