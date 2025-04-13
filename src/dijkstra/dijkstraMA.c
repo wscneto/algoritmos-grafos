@@ -3,12 +3,6 @@
 
 #define INF 999999
 
-typedef struct Dijsktra
-{
-    int pai;
-    int custo;
-} Dijkstra;
-
 int menorDistancia(int dist[], int visitado[], int V)
 {
     int min = INF, min_index;
