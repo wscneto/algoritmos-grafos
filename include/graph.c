@@ -2,16 +2,17 @@
 #include <stdlib.h>
 #include "graph.h"
 
-Vertex* createVertex(int v)
+Vertex* createVertex(int v, Vertex* w)
 {
     Vertex* newVertex = malloc(sizeof(Vertex));
     if(!newVertex)
     {
-        printf("Erro na alocação de memória para o vértice.\n");
+        printf("\nErro na alocação de memória para o vértice.\n");
         exit(EXIT_FAILURE);
     }
     newVertex->vertex = v;
-    newVertex->next = NULL;
+    newVertex->cost = 0;
+    newVertex->next = w;
 
     return newVertex;
 }
@@ -36,7 +37,7 @@ void deleteGraph(Graph* graph)
     free(graph);
 }
 
-Graph* createGraph(int numVertices, int isDirected)
+Graph* createGraph(int numVertices)
 {
     Graph* graph = malloc(sizeof(Graph));
     if(!graph)
@@ -45,8 +46,9 @@ Graph* createGraph(int numVertices, int isDirected)
         exit(EXIT_FAILURE);
     }
     graph->numVertices = numVertices;
-    graph->isDirected = isDirected;
+    graph->numEdges = 0;
     graph->adjLists = malloc(numVertices * sizeof(Vertex*));
+
     if(!graph->adjLists)
     {
         printf("Erro na alocação de memória para listas de adjacência.");
@@ -54,26 +56,21 @@ Graph* createGraph(int numVertices, int isDirected)
         exit(EXIT_FAILURE);
     }
 
-    for(int i = 0; i < numVertices; i++)
-    {
-        graph->adjLists[i] = NULL;
-    }
+    for(int i = 0; i < numVertices; i++) graph->adjLists[i] = NULL;
 
     return graph;
 }
 
-void addEdge(Graph* graph, int src, int dest)
+void addEdge(Graph* graph, int src, int dest, int cost)
 {
-    Vertex* newVertex = createVertex(dest);
-    newVertex->next = graph->adjLists[src];
-    graph->adjLists[src] = newVertex;
+    for (Vertex* a = graph->adjLists[src]; a != NULL; a = a->next) 
+        if (a->vertex == dest) return;
 
-    if(!graph->isDirected)
-    {
-        newVertex = createVertex(src);
-        newVertex->next = graph->adjLists[dest];
-        graph->adjLists[dest] = newVertex;
-    }
+    graph->adjLists[src] = createVertex(dest, graph->adjLists[src]);
+    graph->adjLists[src]->cost = cost;
+    graph->adjLists[dest] = createVertex(src, graph->adjLists[dest]);
+    graph->adjLists[dest]->cost = cost;
+    graph->numEdges++;
 }
 
 void printGraph(Graph* graph)
@@ -85,7 +82,7 @@ void printGraph(Graph* graph)
         printf("%d --->", v);
         while(temp)
         {
-            printf(" %d ->", temp->vertex);
+            printf("(%d) %d -->", temp->cost, temp->vertex);
             temp = temp->next;
         }
         printf(" NULL\n");
