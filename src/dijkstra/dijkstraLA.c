@@ -142,5 +142,7 @@ int main(int argc, char *argv[])
     fclose(entrada);
     if (saida != stdout) fclose(saida);
 
+    deleteGraph(G); 
+
     return 0;
 }
