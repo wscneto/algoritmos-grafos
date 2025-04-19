@@ -5,6 +5,7 @@
 typedef struct Vertex
 {
     int vertex;
+    int cost;
     struct Vertex* next;
 } Vertex;
 
@@ -16,10 +17,10 @@ typedef struct Graph
 } Graph;
 
 // FUNCTIONS:
-Vertex* createVertex(int v);
-Graph* createGraph(int numVertices, int numEdges);
+Vertex* createVertex(int v, Vertex* w);
+Graph* createGraph(int numVertices);
 void deleteGraph(Graph* graph);
-void addEdge(Graph* graph, int src, int dest);
+void addEdge(Graph* graph, int src, int dest, int cost);
 void printGraph(Graph* graph);
 
 #endif
