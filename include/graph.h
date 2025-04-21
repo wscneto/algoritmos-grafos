@@ -20,7 +20,8 @@ typedef struct Graph
 Vertex* createVertex(int v, Vertex* w);
 Graph* createGraph(int numVertices);
 void deleteGraph(Graph* graph);
-void addEdge(Graph* graph, int src, int dest, int cost);
+void addWeightedEdge(Graph* graph, int src, int dest, int cost, int isDirected);
+void addUnweightedEdge(Graph* graph, int src, int dest, int isDirected);
 void printGraph(Graph* graph);
 
 #endif

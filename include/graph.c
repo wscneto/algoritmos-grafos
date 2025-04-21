@@ -61,15 +61,39 @@ Graph* createGraph(int numVertices)
     return graph;
 }
 
-void addEdge(Graph* graph, int src, int dest, int cost)
+// Handles weighted graphs.
+void addWeightedEdge(Graph* graph, int src, int dest, int cost, int isDirected)
 {
-    for (Vertex* a = graph->adjLists[src]; a != NULL; a = a->next) 
-        if (a->vertex == dest) return;
+    for(Vertex* a = graph->adjLists[src]; a != NULL; a = a->next) 
+        if(a->vertex == dest) return;
 
     graph->adjLists[src] = createVertex(dest, graph->adjLists[src]);
     graph->adjLists[src]->cost = cost;
-    graph->adjLists[dest] = createVertex(src, graph->adjLists[dest]);
-    graph->adjLists[dest]->cost = cost;
+
+    // Handles undirected graphs.
+    if(!isDirected)
+    {
+        graph->adjLists[dest] = createVertex(src, graph->adjLists[dest]);
+        graph->adjLists[dest]->cost = cost;
+    }
+    
+    graph->numEdges++;
+}
+
+// Handles unweighted graphs.
+void addUnweightedEdge(Graph* graph, int src, int dest, int isDirected)
+{
+    for(Vertex* a = graph->adjLists[src]; a != NULL; a = a->next) 
+        if(a->vertex == dest) return;
+
+    graph->adjLists[src] = createVertex(dest, graph->adjLists[src]);
+
+    // Handles undirected graphs.
+    if(!isDirected)
+    {
+        graph->adjLists[dest] = createVertex(src, graph->adjLists[dest]);
+    }
+
     graph->numEdges++;
 }
 
