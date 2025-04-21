@@ -60,7 +60,7 @@ int main()
     scanf("%d", &numEdges);
 
     // Cria grafo com 'numVertices' vértices e 'numEdges' arestas.
-    Graph* graph = createGraph(numVertices, numEdges);
+    Graph* graph = createGraph(numVertices);
     
     for(int i = 0; i < numEdges; i++)
     {
@@ -68,7 +68,7 @@ int main()
         printf("Digite os vértices que compõem a %dª aresta: ", i + 1);
         scanf("%d %d", &src, &dest);
 
-        addEdge(graph, src, dest);
+        addUnweightedEdge(graph, src, dest, 0); // isDirected set to 0 by default.
     }
     
     printGraph(graph);
