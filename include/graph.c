@@ -61,17 +61,21 @@ Graph* createGraph(int numVertices)
     return graph;
 }
 
-void addEdge(Graph* graph, int src, int dest, int cost)
-{
-    for (Vertex* a = graph->adjLists[src]; a != NULL; a = a->next) 
-        if (a->vertex == dest) return;
+void addEdge(Graph* graph, int src, int dest, int cost) {
+    Vertex* newNode = malloc(sizeof(Vertex));
+    newNode->vertex = dest;
+    newNode->cost = cost;
+    newNode->next = graph->adjLists[src];
+    graph->adjLists[src] = newNode;
 
-    graph->adjLists[src] = createVertex(dest, graph->adjLists[src]);
-    graph->adjLists[src]->cost = cost;
-    graph->adjLists[dest] = createVertex(src, graph->adjLists[dest]);
-    graph->adjLists[dest]->cost = cost;
-    graph->numEdges++;
+    // Se for não-direcionado:
+    newNode = malloc(sizeof(Vertex));
+    newNode->vertex = src;
+    newNode->cost = cost;
+    newNode->next = graph->adjLists[dest];
+    graph->adjLists[dest] = newNode;
 }
+
 
 void printGraph(Graph* graph)
 {
