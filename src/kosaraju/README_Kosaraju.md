@@ -19,13 +19,13 @@ O algoritmo de Kosaraju realiza duas buscas em profundidade (DFS) e uma transpos
 ### 🔧 Compilação
 
 ```bash
-make (você pode editar o arquivo de entrada e saida no arquivo Makefile)
+make 
 ```
 
 ### 🏃 Execução
 
 ```bash
-make run
+make run (você pode editar o arquivo de entrada e saida no arquivo Makefile)
 ```
 
 ### 📌 Parâmetros
