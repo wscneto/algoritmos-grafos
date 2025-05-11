@@ -20,12 +20,16 @@ O algoritmo de Kosaraju realiza duas buscas em profundidade (DFS) e uma transpos
 
 ```bash
 make 
+ou
+gcc -o kosaraju kosaraju.c ../../src/graph.c ../../src/stack.c
 ```
 
 ### 🏃 Execução
 
 ```bash
 make run (você pode editar o arquivo de entrada e saida no arquivo Makefile)
+ou
+./kosaraju -f <arquivo_entrada> -o <arquivo_saida>
 ```
 
 ### 📌 Parâmetros
@@ -92,3 +96,8 @@ Cada linha representa uma CFC (Componente Fortemente Conexa), com os vértices l
 1 3 2 
 7 6 4 5
 ```
+---
+
+## 🤝 Créditos
+
+Implementação feita para fins educacionais em Ciência da Computação, com suporte ao uso acadêmico e aprendizado de algoritmos de grafos.
