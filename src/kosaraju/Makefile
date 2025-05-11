@@ -2,7 +2,7 @@
 
 CC = gcc
 CFLAGS = -Wall -O2
-TARGET = kosaraju
+TARGET = kosaraju.bin
 SRC = kosaraju.c
 GRAPH_SRC = ../../include/graph.c  
 STACK_SRC = ../../include/stack.c
