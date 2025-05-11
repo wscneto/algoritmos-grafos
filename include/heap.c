@@ -92,3 +92,12 @@ int isInMinHeap(MinHeap* heap, int v)
 
     return 0;
 }
+
+/* LIBERAR MEMÓRIA */
+void freeHeap(MinHeap* heap) 
+{
+    if (heap == NULL) return;
+    free(heap->pos);
+    free(heap->nodes);
+    free(heap);
+}

@@ -1,45 +1,58 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "../../include/graph.h"
+#include "../../include/heap.h"
+#define INFINITY 999999
 
-#define INF 999999
-
-int menorDistancia(int dist[], int visitado[], int V)
+void dijkstra(Graph* graph, int origem, FILE* saida) 
 {
-    int min = INF, min_index;
+    int V = graph->numVertices;
+    int* dist = (int*)malloc(V * sizeof(int));
 
-    for (int v = 0; v < V; v++)
-        if (!visitado[v] && dist[v] <= min)
-            min = dist[v], min_index = v;
+    MinHeap* heap = createHeap(V);
 
-    return min_index;
-}
+    for (int v = 0; v < V; v++) 
+    {
+        dist[v] = INFINITY;
+        heap->nodes[v].vertex = v;
+        heap->nodes[v].dist = INFINITY;
+        heap->pos[v] = v;
+    }
 
-void dijkstra(int **grafo, int V, FILE *saida, int origem)
-{
-    int dist[V];     // dist[i] será a menor distância de origem até i
-    int visitado[V]; // visitado[i] será verdadeiro se o vértice i já foi processado
+    heap->nodes[origem].dist = 0;
+    dist[origem] = 0;
+    decreaseKey(heap, origem, 0);
+
+    heap->size = V;
+
+    while (!isEmpty(heap)) 
+    {
+        HeapNode minNode = extractMin(heap);
+        int u = minNode.vertex;
+
+        Vertex* pCrawl = graph->adjLists[u];
+        while (pCrawl != NULL) 
+        {
+            int v = pCrawl->vertex;
+
+            if (isInMinHeap(heap, v) && dist[u] != INFINITY && pCrawl->cost + dist[u] < dist[v]) 
+            {
+                dist[v] = dist[u] + pCrawl->cost;
+                decreaseKey(heap, v, dist[v]);
+            }
+            pCrawl = pCrawl->next;
+        }
+    }
 
     for (int i = 0; i < V; i++)
     {
-        dist[i] = INF;
-        visitado[i] = 0;
-    }
+        if(!saida) printf("%d:%d ", i + 1, dist[i] != INFINITY ? dist[i] : -1);
+        else fprintf(saida, "%d:%d ", i + 1, dist[i] != INFINITY ? dist[i] : -1);
+    } 
 
-    dist[origem] = 0;
-
-    for (int count = 0; count < V - 1; count++)
-    {
-        int u = menorDistancia(dist, visitado, V);
-        visitado[u] = 1;
-
-        for (int v = 0; v < V; v++)
-            if (!visitado[v] && grafo[u][v] && dist[u] != INF && dist[u] + grafo[u][v] < dist[v])
-                dist[v] = dist[u] + grafo[u][v];
-    }
-
-    printf("Vértice \t Distância a partir da origem\n");
-    for (int i = 0; i < V; i++) fprintf(saida, "%d:%d ", i+1, dist[i]);
-    fprintf(saida, "\n");
+    freeHeap(heap);
+    free(dist);
 }
 
 void printHelp()
@@ -58,7 +71,6 @@ int main(int argc, char *argv[])
     char *outputFile = NULL;
     int origem = -1;
 
-    // Parse de argumentos
     for (int i = 1; i < argc; i++)
     {
         if (strcmp(argv[i], "-h") == 0)
@@ -96,31 +108,21 @@ int main(int argc, char *argv[])
         }
     }
 
-    int numVertices, numArestas;
+    int numVertices, numArestas, v, w, cost;
     fscanf(entrada, "%d %d", &numVertices, &numArestas);
 
-    int **matriz = malloc((numVertices) * sizeof(int *));
-    for (int i = 0; i < numVertices; i++)
+    Graph *G = createGraph(numVertices);
+    
+    for (int count = 0; count < numArestas; count++)
     {
-        matriz[i] = malloc((numVertices) * sizeof(int));
-        for (int j = 0; j < numVertices; j++) matriz[i][j] = INF;
+        fscanf(entrada, "%d%d%d", &v, &w, &cost);
+        addEdge(G, v-1, w-1, cost);
     }
 
-    // Lê as arestas
-    for (int i = 0; i < numArestas; i++)
-    {
-        int v, w, cost;
-        fscanf(entrada, "%d %d %d", &v, &w, &cost);
-        matriz[v - 1][w - 1] = cost;
-        matriz[w - 1][v - 1] = cost; // Se for grafo não-direcionado
-    }
+    /* CHAMANDO O ALGORITMO */
+    dijkstra(G, origem - 1, saida);
 
-    dijkstra(matriz, numVertices, saida, origem - 1);
-
-    // Libera a matriz
-    for (int i = 0; i < numVertices; i++) free(matriz[i]);
-    free(matriz);
-
+    deleteGraph(G);
     fclose(entrada);
     if (saida != stdout) fclose(saida);
 

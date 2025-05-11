@@ -27,5 +27,6 @@ HeapNode extractMin(MinHeap* heap);
 void decreaseKey(MinHeap* heap, int v, int dist);
 /* VERIFICAR SE O VERTICE AINDA ESTÁ NA HEAP*/
 int isInMinHeap(MinHeap* heap, int v);
-
+/* LIBERAR MEMÓRIA */
+void freeHeap(MinHeap* heap);
 #endif
