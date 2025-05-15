@@ -2,81 +2,67 @@
 #include <stdlib.h>
 #include "../../../include/graph.h"
 
-void DFSHelper(Graph* graph, int vertex, int* visited)
+typedef struct 
 {
-    // Marca o vértice atual como visitado
-    visited[vertex] = 1;
-    printf("Vértice visitado: %d\n", vertex);
+    int father;
+    int born;
+    int dead;
+} DFS;
 
-    // Visita todos os vértices adjacentes recursivamente
-    Vertex* adjVertex = graph->adjLists[vertex];
-    while(adjVertex != NULL)
+void DFSrec(int v, Graph* G, int* born, int* dead, DFS* dfs)
+{
+    dfs[v].born = (*born)++;
+
+    Vertex* w = G->adjLists[v];
+
+    while(w)
     {
-        int connectedVertex = adjVertex->vertex;
-        
-        // Se um vértice adjacente não foi visitado, chama DFSHelper recursivamente para esse vértice.
-        if(!visited[connectedVertex])
+        if(dfs[w->vertex].born == -1)
         {
-            DFSHelper(graph, connectedVertex, visited);
+            dfs[w->vertex].father = v;
+            DFSrec(w->vertex, G, born, dead, dfs);
         }
 
-        adjVertex = adjVertex->next;
+        w = w->next;
+    }
+
+    dfs[v].dead = (*dead)++;
+}
+
+void printDFS(Graph* G, DFS* dfs) 
+{
+    int V = G->numVertices;
+    printf("Vértice | Born | Dead | Father\n");
+    printf("-------------------------------\n");
+
+    for(int v = 0; v < V; v++) {
+        printf("   %2d   |  %2d  |  %2d  |   %2d\n", 
+            v + 1, 
+            dfs[v].born + 1, 
+            dfs[v].dead + 1, 
+            dfs[v].father + 1);
     }
 }
 
-void DFS(Graph* graph, int startVertex)
+DFS* DFSAlgorithm(Graph* G, DFS* dfs)
 {
-    // Cria array para guardar vértices visitados.
-    int* visited = calloc(graph->numVertices, sizeof(int));
-    if(!visited)
+    int cont1 = 0, cont2 = 0, V = G->numVertices;
+
+    for(int v = 0; v < V; v++)
     {
-        printf("Erro na alocação de memória para visited.");
-        exit(EXIT_FAILURE);
+        dfs[v].father = -1;
+        dfs[v].dead = -1;
+        dfs[v].born = -1;
     }
 
-    DFSHelper(graph, startVertex, visited);
-
-    // Verifica se sobraram vértices não visitados.
-    // Útil para descobrir componentes conexas de um grafo desconexo.
-    for(int i = 0; i < graph->numVertices; i++)
+    for(int v = 0; v < V; v++) 
     {
-        if(!visited[i])
+        if(dfs[v].born == -1)
         {
-            DFSHelper(graph, i, visited);
+            dfs[v].father = v;
+            DFSrec(v, G, &cont1, &cont2, dfs);
         }
     }
 
-    free(visited);
-}
-
-int main()
-{
-    int numVertices, numEdges;
-
-    printf("Digite o número de vértices: ");
-    scanf("%d", &numVertices);
-    
-    printf("Digite o número de arestas: ");
-    scanf("%d", &numEdges);
-
-    // Cria grafo com 'numVertices' vértices e 'numEdges' arestas.
-    Graph* graph = createGraph(numVertices);
-    
-    for(int i = 0; i < numEdges; i++)
-    {
-        int src, dest;
-        printf("Digite os vértices que compõem a %dª aresta: ", i + 1);
-        scanf("%d %d", &src, &dest);
-
-        addUnweightedEdge(graph, src, dest, 0); // isDirected set to 0 by default.
-    }
-    
-    printGraph(graph);
-    
-    // Realiza DFS começando pelo vértice 0.
-    DFS(graph, 0);
-    
-    deleteGraph(graph);
-
-    return 0;
+    return dfs;
 }
