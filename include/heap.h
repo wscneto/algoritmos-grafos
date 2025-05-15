@@ -27,8 +27,5 @@ HeapNode extractMin(MinHeap* heap);
 void decreaseKey(MinHeap* heap, int v, int dist);
 /* VERIFICAR SE O VERTICE AINDA ESTÁ NA HEAP*/
 int isInMinHeap(MinHeap* heap, int v);
-/* ATUALIZAÇÃO DA LOGICA DAS ARESTAS */
-void addEdge(Graph* graph, int src, int dest, int cost);
-
 
 #endif

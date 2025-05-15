@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "heap.h"
-#include "graph.h"
 
 /* CRIAR HEAP */
 MinHeap* createHeap(int capacity) 
@@ -94,18 +93,11 @@ int isInMinHeap(MinHeap* heap, int v)
     return 0;
 }
 
-/* ATUALIZAÇÃO DA LOGICA DAS ARESTAS */
-void addEdge(Graph* graph, int src, int dest, int cost) {
-    Vertex* newNode = malloc(sizeof(Vertex));
-    newNode->vertex = dest;
-    newNode->cost = cost;
-    newNode->next = graph->adjLists[src];
-    graph->adjLists[src] = newNode;
-
-    // Se for não-direcionado:
-    newNode = malloc(sizeof(Vertex));
-    newNode->vertex = src;
-    newNode->cost = cost;
-    newNode->next = graph->adjLists[dest];
-    graph->adjLists[dest] = newNode;
+/* LIBERAR MEMÓRIA */
+void freeHeap(MinHeap* heap) 
+{
+    if (heap == NULL) return;
+    free(heap->pos);
+    free(heap->nodes);
+    free(heap);
 }
