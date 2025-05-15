@@ -1,44 +1,35 @@
+# Algoritmo de Dijkstra com Min Heap
 
-# 🧭 Dijkstra em C – Lista e Matriz de Adjacência
+Este projeto implementa o algoritmo de Dijkstra para encontrar os menores caminhos a partir de um vértice de origem em um grafo direcionado e ponderado, utilizando uma fila de prioridade baseada em Min Heap.
 
-Este projeto implementa o algoritmo de Dijkstra em C, com duas versões distintas:
-- 📘 `dijkstraLA.c`: usa **Lista de Adjacência**
-- 📗 `dijkstraMA.c`: usa **Matriz de Adjacência**
+## 📌 Compilação
 
-Ambas as versões utilizam argumentos via linha de comando para configurar entrada, saída e vértice inicial.
+Certifique-se de ter os arquivos `graph.h`, `heap.h` e suas respectivas implementações disponíveis no diretório `include` e `src`.
 
----
-
-## 🛠️ Compilação
-
-Compile os programas com:
+Compile com:
 
 ```bash
-gcc dijkstraLA.c -o dijkstraLA
-gcc dijkstraMA.c -o dijkstraMA
+make
+ou
+gcc -o dijkstra dijkstra.c ../../src/graph.c ../../src/heap.c
 ```
 
----
-
-## ▶️ Execução
+## 🚀 Execução
 
 ```bash
-./dijkstraLA -f entrada.txt -o saida.txt -i 1
-./dijkstraMA -f entrada.txt -o saida.txt -i 1
+make run
+ou
+./dijkstra -f <arquivo_entrada> -i <vertice_inicial> -o <arquivo_saida>
 ```
 
-### 🔧 Parâmetros:
+### Parâmetros
 
-| Parâmetro | Descrição |
-|----------|-----------|
-| `-h`     | Mostra a mensagem de ajuda |
-| `-f <arquivo>` | Arquivo de entrada contendo o grafo |
-| `-o <arquivo>` | Arquivo de saída (se omitido, imprime no terminal) |
-| `-i <vértice>` | Vértice de origem (numerado a partir de 1) |
+- `-h`: Mostra a ajuda.
+- `-f <arquivo_entrada>`: Caminho para o arquivo contendo o grafo.
+- `-i <vertice_inicial>`: Vértice de origem para iniciar o algoritmo (indexado a partir de 1).
+- `-o <arquivo_saida>` (opcional): Caminho do arquivo onde o resultado será salvo.
 
----
-
-## 📥 Formato do Arquivo de Entrada
+## 📝 Formato do Arquivo de Entrada
 
 O arquivo de entrada deve conter:
 
@@ -47,15 +38,29 @@ n m
 v1 w1 c1
 v2 w2 c2
 ...
+vm wm cm
 ```
 
 Onde:
-- `n` = número de vértices
-- `m` = número de arestas
-- `vi`, `wi` = vértices conectados
-- `ci` = custo da aresta
+- `n` é o número de vértices
+- `m` é o número de arestas
+- Cada linha `vi wi ci` representa uma aresta do vértice `vi` ao vértice `wi` com custo `ci`.
 
-### Exemplo:
+Os vértices devem estar indexados a partir de 1.
+
+## 📤 Saída
+
+A saída consiste na impressão da menor distância entre o vértice de origem e todos os demais vértices:
+
+```
+1:0 2:3 3:8 4:-1 ...
+```
+
+Se um vértice for inalcançável, sua distância será representada por `-1`.
+
+## 📚 Exemplo de Uso
+
+**Entrada(grafo.txt):**
 ```
 6 8
 1 2 5
@@ -68,32 +73,22 @@ Onde:
 4 6 4
 ```
 
----
-
-## 📤 Saída
-
-O resultado mostra a **menor distância de cada vértice a partir do vértice inicial**, no formato:
-
-```
-1:0 2:5 3:4 4:2 5:8 6:6
+**Comando:**
+```bash
+./dijkstra -f grafo.txt -i 1 -o resultado.txt
 ```
 
----
-
-## 📚 Arquivos
-
-| Arquivo | Descrição |
-|--------|-----------|
-| `dijkstraLA.c` | Implementação com **lista de adjacência** |
-| `dijkstraMA.c` | Implementação com **matriz de adjacência** |
-| `graph.h`, `queue.h` | (Necessários para `dijkstraLA.c`; você deve implementá-los ou adaptá-los conforme sua estrutura de dados) |
+**Saída(resultado.txt):**
+```
+1:0 2:3 3:4 4:2 5:10 6:3
+```
 
 ---
 
 ## 📌 Observações
 
 - Os vértices são numerados a partir de **1** na entrada e saída.
-- As arestas são consideradas **direcionadas** em ambas as versões.
+- As arestas são consideradas **não direcionadas**.
 
 ---
 

@@ -1,78 +1,67 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../../include/graph.h"
-#include "../../include/queue.h"
 #define INFINITY 999999
 
-typedef struct Dijkstra
+void bellman(Graph *G, int origem, FILE *saida)
 {
-    int pai;
-    int custo;
-} Dijkstra;
+    int V = G->numVertices;
+    int *dist = malloc(V * sizeof(int));
 
-void dijkstra(Graph *G, Dijkstra custos[], int origem)
-{
-    int processados[G->numVertices];
+    for (int i = 0; i < V; i++)
+        dist[i] = INFINITY;
 
-    // Inicialização
-    for (int i = 0; i < G->numVertices; i++)
+    dist[origem] = 0;
+    
+    for(int v = 0; v < V - 1; v++)
     {
-        custos[i].custo = INFINITY;
-        custos[i].pai = -1;
-        processados[i] = 0;
-    }
-
-    custos[origem].custo = 0;
-
-    for (int count = 0; count < G->numVertices; count++)
-    {
-        // Encontra o vértice com menor custo não processado
-        int min = INFINITY;
-        int u = -1;
-
-        for (int v = 0; v < G->numVertices; v++)
+        for (int v = 0; v < V; v++)
         {
-            if (!processados[v] && custos[v].custo < min)
+            Vertex* w = G->adjLists[v];
+
+            while (w) 
             {
-                min = custos[v].custo;
-                u = v;
+                if (dist[v] != INFINITY && dist[v] + w->cost < dist[w->vertex]) 
+                    dist[w->vertex] = dist[v] + w->cost;
+                w = w->next;
             }
         }
+    }
 
-        // Se não encontrou nenhum vértice, termina
-        if (u == -1) continue;
+    for (int v = 0; v < V; v++)
+    {
+        Vertex* w = G->adjLists[v];
 
-        processados[u] = 1;
-        printf("%d ", u);
-
-        /* Caso queria visualizar cada iteração
-
-        for (int v = 0; v < G->numVertices; v++) printf("%d ", custos[v].custo);
-        printf("\n");
-        */
-
-        // Atualiza os custos dos vizinhos de u
-        Vertex *w = G->adjLists[u];
-        while (w != NULL)
+        while (w) 
         {
-            int v = w->vertex;
-            if (!processados[v])
+            if (dist[v] != INFINITY && dist[v] + w->cost < dist[w->vertex]) 
             {
-                int novo_custo = custos[u].custo + w->cost;
-                if (novo_custo < custos[v].custo)
-                {
-                    custos[v].custo = novo_custo;
-                    custos[v].pai = u;
-                }
+                if(!saida) printf("FALSE\n");
+                else fprintf(saida, "FALSE\n");
+                
+                free(dist);
+                return;
             }
+
             w = w->next;
         }
     }
+
+    if(!saida) printf("TRUE\n");
+    else fprintf(saida, "TRUE\n");
+        
+    for (int i = 0; i < V; i++)
+    {
+        if(!saida) printf("%d:%d ", i + 1, dist[i] != INFINITY ? dist[i] : -1);
+        else fprintf(saida, "%d:%d ", i + 1, dist[i] != INFINITY ? dist[i] : -1);
+    }
+    free(dist);
 }
 
 void printHelp()
 {
-    printf("Uso: ./dijkstra -f <arquivo_entrada> -o <arquivo_saida> -i <vertice_inicial>\n");
+    printf("Uso: ./bellman -f <arquivo_entrada> -o <arquivo_saida> -i <vertice_inicial>\n");
     printf("Parâmetros:\n");
     printf("  -h               Mostra essa mensagem de ajuda\n");
     printf("  -f <arquivo>     Arquivo de entrada com o grafo\n");
@@ -86,7 +75,6 @@ int main(int argc, char *argv[])
     char *outputFile = NULL;
     int origem = -1;
 
-    // Parse de argumentos
     for (int i = 1; i < argc; i++)
     {
         if (strcmp(argv[i], "-h") == 0)
@@ -126,23 +114,21 @@ int main(int argc, char *argv[])
 
     int numVertices, numArestas, v, w, cost;
     fscanf(entrada, "%d %d", &numVertices, &numArestas);
-    Dijkstra custos[numVertices];
 
     Graph *G = createGraph(numVertices);
+    
     for (int count = 0; count < numArestas; count++)
     {
         fscanf(entrada, "%d%d%d", &v, &w, &cost);
         addEdge(G, v-1, w-1, cost);
     }
 
-    dijkstra(G, custos, origem - 1);
+    /* CHAMANDO O ALGORITMO */
+    bellman(G, origem - 1, saida);
 
-    for (int i = 0; i < numVertices; i++) fprintf(saida, "%d:%d ", i+1, custos[i].custo);
-
+    deleteGraph(G);
     fclose(entrada);
     if (saida != stdout) fclose(saida);
-
-    deleteGraph(G); 
 
     return 0;
 }
