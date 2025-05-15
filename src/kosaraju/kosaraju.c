@@ -89,8 +89,10 @@ void kosaraju(Graph* G, FILE* saida)
 
             /* Ordena e imprime */
             for (int i = count-1; i >= 0; i--)
+            {
                 if(!saida) printf("%d ", nodes[i]);
                 else fprintf(saida, "%d ", nodes[i]);
+            }
                 
             if(!saida) printf("\n");
                 else fprintf(saida, "\n");
