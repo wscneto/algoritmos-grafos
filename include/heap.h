@@ -13,5 +13,22 @@ typedef struct {
     int* pos;
 } MinHeap;
 
+/* CRIAR HEAP */
+MinHeap* createHeap(int capacity);
+/* TROCAR NOS DA HEAP DE LUGAR */
+void swapHeapNode(HeapNode* a, HeapNode* b);
+/* ORGANIZAR A HEAP  */
+void minHeapify(MinHeap* heap, int index);
+/* VERIFICAR SE A HEAP ESTÁ VAZIA */
+int isEmpty(MinHeap* heap);
+/* EXTRAI O TOPO DA HEAP(PROXIMO VERTICE NÃO PROCESSADO) */
+HeapNode extractMin(MinHeap* heap);
+/* ATUALIZA A DISTANCIA DE UM VERTICE */
+void decreaseKey(MinHeap* heap, int v, int dist);
+/* VERIFICAR SE O VERTICE AINDA ESTÁ NA HEAP*/
+int isInMinHeap(MinHeap* heap, int v);
+/* ATUALIZAÇÃO DA LOGICA DAS ARESTAS */
+void addEdge(Graph* graph, int src, int dest, int cost);
+
 
 #endif
