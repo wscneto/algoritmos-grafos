@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../../include/graph.h"
-#include "../../include/queue.h"
 #define INFINITY 999999
 
 typedef struct Dijkstra

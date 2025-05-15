@@ -14,8 +14,9 @@ Ambas as versões utilizam argumentos via linha de comando para configurar entra
 Compile os programas com:
 
 ```bash
-gcc dijkstraLA.c -o dijkstraLA
-gcc dijkstraMA.c -o dijkstraMA
+gcc -o djikstra dijkstraMA.c 
+gcc -o djikstra dijkstraLA.c ../../include/graph.c
+gcc -o djikstra dijkstraHeap.c ../../include/graph.c ../../include/heap.c
 ```
 
 ---
@@ -23,8 +24,9 @@ gcc dijkstraMA.c -o dijkstraMA
 ## ▶️ Execução
 
 ```bash
-./dijkstraLA -f entrada.txt -o saida.txt -i 1
-./dijkstraMA -f entrada.txt -o saida.txt -i 1
+./dijkstraLA -f entrada.txt -o saida.txt -i ORIGEM
+./dijkstraMA -f entrada.txt -o saida.txt -i ORIGEM
+./dijkstraHeap -f entrada.txt -o saida.txt -i ORIGEM
 ```
 
 ### 🔧 Parâmetros:
