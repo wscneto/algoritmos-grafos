@@ -1,16 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../../include/graph.h"
 #include "../../include/heap.h"
 #define INFINITY 999999
 
-void dijkstra(Graph* graph, int origem) {
+void dijkstra(Graph* graph, int origem, FILE* saida) 
+{
     int V = graph->numVertices;
-    int dist[V];
+    int* dist = (int*)malloc(V * sizeof(int));
 
     MinHeap* heap = createHeap(V);
 
-    for (int v = 0; v < V; v++) {
+    for (int v = 0; v < V; v++) 
+    {
         dist[v] = INFINITY;
         heap->nodes[v].vertex = v;
         heap->nodes[v].dist = INFINITY;
@@ -23,15 +26,18 @@ void dijkstra(Graph* graph, int origem) {
 
     heap->size = V;
 
-    while (!isEmpty(heap)) {
+    while (!isEmpty(heap)) 
+    {
         HeapNode minNode = extractMin(heap);
         int u = minNode.vertex;
 
         Vertex* pCrawl = graph->adjLists[u];
-        while (pCrawl != NULL) {
+        while (pCrawl != NULL) 
+        {
             int v = pCrawl->vertex;
 
-            if (isInMinHeap(heap, v) && dist[u] != INFINITY && pCrawl->cost + dist[u] < dist[v]) {
+            if (isInMinHeap(heap, v) && dist[u] != INFINITY && pCrawl->cost + dist[u] < dist[v]) 
+            {
                 dist[v] = dist[u] + pCrawl->cost;
                 decreaseKey(heap, v, dist[v]);
             }
@@ -39,7 +45,14 @@ void dijkstra(Graph* graph, int origem) {
         }
     }
 
-    for (int i = 0; i < V; i++) printf("%d:%d ", i + 1, dist[i]);
+    for (int i = 0; i < V; i++)
+    {
+        if(!saida) printf("%d:%d ", i + 1, dist[i] != INFINITY ? dist[i] : -1);
+        else fprintf(saida, "%d:%d ", i + 1, dist[i] != INFINITY ? dist[i] : -1);
+    } 
+
+    freeHeap(heap);
+    free(dist);
 }
 
 void printHelp()
@@ -58,7 +71,6 @@ int main(int argc, char *argv[])
     char *outputFile = NULL;
     int origem = -1;
 
-    // Parse de argumentos
     for (int i = 1; i < argc; i++)
     {
         if (strcmp(argv[i], "-h") == 0)
@@ -100,14 +112,17 @@ int main(int argc, char *argv[])
     fscanf(entrada, "%d %d", &numVertices, &numArestas);
 
     Graph *G = createGraph(numVertices);
+    
     for (int count = 0; count < numArestas; count++)
     {
         fscanf(entrada, "%d%d%d", &v, &w, &cost);
         addEdge(G, v-1, w-1, cost);
     }
 
-    dijkstra(G, origem - 1);
+    /* CHAMANDO O ALGORITMO */
+    dijkstra(G, origem - 1, saida);
 
+    deleteGraph(G);
     fclose(entrada);
     if (saida != stdout) fclose(saida);
 

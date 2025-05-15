@@ -1,20 +1,21 @@
-# Makefile para o algoritmo de Kosaraju
+# Makefile para o algoritmo de Dijkstra
 
 CC = gcc
 CFLAGS = -Wall -O2
-TARGET = kosaraju.bin
-SRC = kosaraju.c
+TARGET = dijkstra.bin
+SRC = dijkstra.c
 GRAPH_SRC = ../../include/graph.c  
+HEAP_SRC = ../../include/heap.c  
 
 .PHONY: all clean help
 
 all: $(TARGET)
 
 $(TARGET): $(SRC) $(GRAPH_SRC)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(GRAPH_SRC)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(GRAPH_SRC) $(HEAP_SRC)
 
 run: $(TARGET)
-	./$(TARGET)
+	./$(TARGET) -f ./arquivo-entrada.dat -o ./arquivo-saida.dat -i 1
 
 help:
 	@echo "Comandos disponíveis:"
