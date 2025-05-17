@@ -1,9 +1,9 @@
-# Makefile para o algoritmo de Kosaraju
+# Makefile para o algoritmo de Prim
 
 CC = gcc
 CFLAGS = -Wall -O2
-TARGET = kosaraju.bin
-SRC = kosaraju.c
+TARGET = prim.bin
+SRC = prim.c
 GRAPH_SRC = ../../include/graph.c  
 
 .PHONY: all clean help
