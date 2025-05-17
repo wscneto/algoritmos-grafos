@@ -85,15 +85,15 @@ int main(int argc, char *argv[])
 
     if (inputFile == NULL || origem == -1)
     {
-        fprintf(stderr, "Erro: você deve fornecer o arquivo de entrada (-f) e o vértice inicial (-i).\n");
-        return 1;
+        printf("Erro: você deve fornecer o arquivo de entrada (-f) e o vértice inicial (-i).\n");
+        exit(EXIT_FAILURE);
     }
 
     FILE *entrada = fopen(inputFile, "r");
     if (!entrada)
     {
-        perror("Erro ao abrir arquivo de entrada");
-        return 1;
+        printf("Erro ao abrir arquivo de entrada\n");
+        exit(EXIT_FAILURE);
     }
 
     FILE *saida = stdout;
@@ -102,9 +102,9 @@ int main(int argc, char *argv[])
         saida = fopen(outputFile, "w");
         if (!saida)
         {
-            perror("Erro ao abrir arquivo de saída");
+            printf("Erro ao abrir arquivo de saída\n");
             fclose(entrada);
-            return 1;
+            exit(EXIT_FAILURE);
         }
     }
 

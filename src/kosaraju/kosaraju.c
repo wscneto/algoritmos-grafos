@@ -135,15 +135,15 @@ int main(int argc, char *argv[])
 
     if (inputFile == NULL)
     {
-        fprintf(stderr, "Erro: você deve fornecer o arquivo de entrada (-f)\n");
-        return 1;
+        printf("Erro: você deve fornecer o arquivo de entrada (-f)\n");
+        exit(EXIT_FAILURE);
     }
 
     FILE *entrada = fopen(inputFile, "r");
     if (!entrada)
     {
-        perror("Erro ao abrir arquivo de entrada");
-        return 1;
+        printf("Erro ao abrir arquivo de entrada");
+        exit(EXIT_FAILURE);
     }
 
     FILE *saida = stdout;
@@ -152,9 +152,9 @@ int main(int argc, char *argv[])
         saida = fopen(outputFile, "w");
         if (!saida)
         {
-            perror("Erro ao abrir arquivo de saída");
+            printf("Erro ao abrir arquivo de saída");
             fclose(entrada);
-            return 1;
+            exit(EXIT_FAILURE);
         }
     }
 
