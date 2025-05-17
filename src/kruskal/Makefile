@@ -1,20 +1,19 @@
-# Makefile para o algoritmo de Kosaraju
+# Makefile para o algoritmo de Kruskal
 
 CC = gcc
 CFLAGS = -Wall -O2
-TARGET = kosaraju.bin
-SRC = kosaraju.c
-GRAPH_SRC = ../../include/graph.c  
+TARGET = kruskal.bin
+SRC = kruskal.c
 
 .PHONY: all clean help
 
 all: $(TARGET)
 
-$(TARGET): $(SRC) $(GRAPH_SRC)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(GRAPH_SRC)
+$(TARGET): $(SRC)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
 
 run: $(TARGET)
-	./$(TARGET)
+	./$(TARGET) -f ./arquivo-entrada.dat -o ./arquivo-saida.dat
 
 help:
 	@echo "Comandos disponíveis:"

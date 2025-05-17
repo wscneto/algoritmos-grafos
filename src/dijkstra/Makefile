@@ -4,8 +4,8 @@ CC = gcc
 CFLAGS = -Wall -O2
 TARGET = dijkstra.bin
 SRC = dijkstra.c
-GRAPH_SRC = ../../include/graph.c  
-HEAP_SRC = ../../include/heap.c  
+GRAPH_SRC = ../headers/graph.c  
+HEAP_SRC = ../headers/heap.c  
 
 .PHONY: all clean help
 

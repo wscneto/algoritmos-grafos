@@ -1,10 +1,10 @@
-# Makefile para o algoritmo de Dijkstra
+# Makefile para o algoritmo de Bellman-Ford
 
 CC = gcc
 CFLAGS = -Wall -O2
 TARGET = bellman
 SRC = bellman.c
-GRAPH_SRC = ../../include/graph.c 
+GRAPH_SRC = ../headers/graph.c 
 
 .PHONY: all clean help
 

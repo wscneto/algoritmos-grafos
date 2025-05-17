@@ -4,17 +4,18 @@ CC = gcc
 CFLAGS = -Wall -O2
 TARGET = prim.bin
 SRC = prim.c
-GRAPH_SRC = ../../include/graph.c  
+GRAPH_SRC = ../headers/graph.c
+HEAP_SRC = ../headers/heap.c  
 
 .PHONY: all clean help
 
 all: $(TARGET)
 
-$(TARGET): $(SRC) $(GRAPH_SRC)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(GRAPH_SRC)
+$(TARGET): $(SRC) $(GRAPH_SRC) $(HEAP_SRC)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(GRAPH_SRC) $(HEAP_SRC)
 
 run: $(TARGET)
-	./$(TARGET)
+	./$(TARGET) -f ./arquivo-entrada.dat -o ./arquivo-saida.dat -i 1
 
 help:
 	@echo "Comandos disponíveis:"

@@ -4,8 +4,8 @@ CC = gcc
 CFLAGS = -Wall -O2
 TARGET = kosaraju.bin
 SRC = kosaraju.c
-GRAPH_SRC = ../../include/graph.c  
-STACK_SRC = ../../include/stack.c
+GRAPH_SRC = ../headers/graph.c  
+STACK_SRC = ../headers/stack.c
 
 .PHONY: all clean help
 
@@ -15,7 +15,7 @@ $(TARGET): $(SRC) $(GRAPH_SRC)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(GRAPH_SRC) $(STACK_SRC)
 
 run: $(TARGET)
-	./$(TARGET) -f .\arquivo-entrada.dat -o .\arquivo-saida.dat
+	./$(TARGET) -f ./arquivo-entrada.dat -o ./arquivo-saida.dat
 
 help:
 	@echo "Comandos disponíveis:"
