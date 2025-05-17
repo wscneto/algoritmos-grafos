@@ -13,3 +13,7 @@ build
 *.exe
 *.out
 *.app
+
+# Input / Output files
+input.dat
+output.dat
