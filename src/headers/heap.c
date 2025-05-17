@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "heap.h"
+#include "../../include/heap.h"
 
 /* CRIAR HEAP */
 MinHeap* createHeap(int capacity) 
