@@ -61,7 +61,7 @@ Graph* createGraph(int numVertices)
     return graph;
 }
 
-void addEdge(Graph* graph, int src, int dest, int cost) {
+void addEdge(Graph* graph, int src, int dest, int cost, int isDirected) {
     Vertex* newNode = malloc(sizeof(Vertex));
     if (newNode == NULL) 
     {
@@ -81,28 +81,28 @@ void addEdge(Graph* graph, int src, int dest, int cost) {
         while (temp->next != NULL) temp = temp->next;
         temp->next = newNode;
     }
-
-    /*
-    // Se for não-direcionado:
-    Vertex* newNodeReverse = malloc(sizeof(Vertex));
-    if (newNodeReverse == NULL) 
+    
+    if(!isDirected)
     {
-        fprintf(stderr, "Erro: malloc falhou em addEdge.\n");
-        exit(EXIT_FAILURE);
-    }
+        Vertex* newNodeReverse = malloc(sizeof(Vertex));
+        if (newNodeReverse == NULL) 
+        {
+            fprintf(stderr, "Erro: malloc falhou em addEdge.\n");
+            exit(EXIT_FAILURE);
+        }
 
-    newNodeReverse->vertex = src;
-    newNodeReverse->cost = cost;
-    newNodeReverse->next = NULL;
+        newNodeReverse->vertex = src;
+        newNodeReverse->cost = cost;
+        newNodeReverse->next = NULL;
 
-    if (graph->adjLists[dest] == NULL) graph->adjLists[dest] = newNodeReverse;
-    else
-    {
-        Vertex* temp = graph->adjLists[dest];
-        while (temp->next != NULL) temp = temp->next;
-        temp->next = newNodeReverse;
+        if (graph->adjLists[dest] == NULL) graph->adjLists[dest] = newNodeReverse;
+        else
+        {
+            Vertex* temp = graph->adjLists[dest];
+            while (temp->next != NULL) temp = temp->next;
+            temp->next = newNodeReverse;
+        }
     }
-    */
 }
 
 void printGraph(Graph* graph)
