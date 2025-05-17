@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../include/graph.h"
+#include "graph.h"
 
 Vertex* createVertex(int v, Vertex* w)
 {
@@ -61,40 +61,48 @@ Graph* createGraph(int numVertices)
     return graph;
 }
 
-// Handles weighted graphs.
-void addWeightedEdge(Graph* graph, int src, int dest, int cost, int isDirected)
-{
-    for(Vertex* a = graph->adjLists[src]; a != NULL; a = a->next) 
-        if(a->vertex == dest) return;
-
-    graph->adjLists[src] = createVertex(dest, graph->adjLists[src]);
-    graph->adjLists[src]->cost = cost;
-
-    // Handles undirected graphs.
-    if(!isDirected)
+void addEdge(Graph* graph, int src, int dest, int cost) {
+    Vertex* newNode = malloc(sizeof(Vertex));
+    if (newNode == NULL) 
     {
-        graph->adjLists[dest] = createVertex(src, graph->adjLists[dest]);
-        graph->adjLists[dest]->cost = cost;
-    }
-    
-    graph->numEdges++;
-}
-
-// Handles unweighted graphs.
-void addUnweightedEdge(Graph* graph, int src, int dest, int isDirected)
-{
-    for(Vertex* a = graph->adjLists[src]; a != NULL; a = a->next) 
-        if(a->vertex == dest) return;
-
-    graph->adjLists[src] = createVertex(dest, graph->adjLists[src]);
-
-    // Handles undirected graphs.
-    if(!isDirected)
-    {
-        graph->adjLists[dest] = createVertex(src, graph->adjLists[dest]);
+        fprintf(stderr, "Erro: malloc falhou em addEdge.\n");
+        exit(EXIT_FAILURE);
     }
 
-    graph->numEdges++;
+    /* GRAFO DIRECIONADO */
+    newNode->vertex = dest;
+    newNode->cost = cost;
+    newNode->next = NULL;
+
+    if (graph->adjLists[src] == NULL) graph->adjLists[src] = newNode; 
+    else
+    {
+        Vertex* temp = graph->adjLists[src];
+        while (temp->next != NULL) temp = temp->next;
+        temp->next = newNode;
+    }
+
+    /*
+    // Se for não-direcionado:
+    Vertex* newNodeReverse = malloc(sizeof(Vertex));
+    if (newNodeReverse == NULL) 
+    {
+        fprintf(stderr, "Erro: malloc falhou em addEdge.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    newNodeReverse->vertex = src;
+    newNodeReverse->cost = cost;
+    newNodeReverse->next = NULL;
+
+    if (graph->adjLists[dest] == NULL) graph->adjLists[dest] = newNodeReverse;
+    else
+    {
+        Vertex* temp = graph->adjLists[dest];
+        while (temp->next != NULL) temp = temp->next;
+        temp->next = newNodeReverse;
+    }
+    */
 }
 
 void printGraph(Graph* graph)
@@ -103,10 +111,10 @@ void printGraph(Graph* graph)
     for(int v = 0; v < graph->numVertices; v++)
     {
         Vertex* temp = graph->adjLists[v];
-        printf("%d --->", v);
+        printf("%d --->", v+1);
         while(temp)
         {
-            printf("(%d) %d -->", temp->cost, temp->vertex);
+            printf("(%d) %d -->", temp->cost, temp->vertex+1);
             temp = temp->next;
         }
         printf(" NULL\n");
