@@ -1,18 +1,22 @@
 #ifndef HEAP_H
 #define HEAP_H
 
-typedef struct {
+// DATA STRUCTURES:
+typedef struct HeapNode
+{
     int vertex;
     int dist;
 } HeapNode;
 
-typedef struct {
+typedef struct MinHeap
+{
     HeapNode* nodes;
     int size;
     int capacity;
     int* pos;
 } MinHeap;
 
+// FUNCTIONS:
 /* CRIAR HEAP */
 MinHeap* createHeap(int capacity);
 /* TROCAR NOS DA HEAP DE LUGAR */
@@ -29,4 +33,5 @@ void decreaseKey(MinHeap* heap, int v, int dist);
 int isInMinHeap(MinHeap* heap, int v);
 /* LIBERAR MEMÓRIA */
 void freeHeap(MinHeap* heap);
+
 #endif
