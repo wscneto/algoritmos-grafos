@@ -67,6 +67,7 @@ void primMST(Graph* graph, int start, FILE* output, int printSolution)
 void printHelp()
 {
     printf("Uso: ./prim -f <arquivo_entrada> -o <arquivo_saida> -i <vertice_inicial>\n");
+    printf("O vértice inicial padrão é 1.\n");
     printf("Parâmetros:\n");
     printf("  -h               Mostra essa mensagem de ajuda\n");
     printf("  -o <arquivo>     Arquivo de saída para os resultados\n");
@@ -79,7 +80,7 @@ int main(int argc, char* argv[])
 {
     char* inputArg = NULL;
     char* outputArg = NULL;
-    int origin = -1;
+    int origin = 1;
     int printSolution = 0;
 
     for(int i = 1; i < argc; i++)
@@ -97,7 +98,7 @@ int main(int argc, char* argv[])
 
     if(inputArg == NULL || origin < 0)
     {
-        printf("Erro: você deve fornecer o arquivo de entrada (-f) e o vértice inicial (-i).\n");
+        printf("Erro: você deve fornecer o arquivo de entrada (-f).\n");
         exit(EXIT_FAILURE);
     }
 
