@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 {
     char* inputArg = NULL;
     char* outputArg = NULL;
-    int origin = 1;
+    int origin = 0;
     int printSolution = 0;
 
     for(int i = 1; i < argc; i++)
