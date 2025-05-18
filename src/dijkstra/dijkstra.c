@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #include "../../include/graph.h"
 #include "../../include/heap.h"
-#define INFINITY 999999
+#define INFINITY INT_MAX
 
 void dijkstra(Graph* graph, int origem, FILE* saida) 
 {
@@ -15,16 +16,18 @@ void dijkstra(Graph* graph, int origem, FILE* saida)
     for (int v = 0; v < V; v++) 
     {
         dist[v] = INFINITY;
+
         heap->nodes[v].vertex = v;
         heap->nodes[v].dist = INFINITY;
+
         heap->pos[v] = v;
     }
+
+    heap->size = V;
 
     heap->nodes[origem].dist = 0;
     dist[origem] = 0;
     decreaseKey(heap, origem, 0);
-
-    heap->size = V;
 
     while (!isEmpty(heap)) 
     {
