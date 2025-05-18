@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
     for (int count = 0; count < numArestas; count++)
     {
         fscanf(entrada, "%d%d%d", &v, &w, &cost);
-        addEdge(G, v-1, w-1, cost);
+        addEdge(G, v-1, w-1, cost, 0);
     }
 
     /* CHAMANDO O ALGORITMO */

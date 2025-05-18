@@ -14,7 +14,7 @@ Graph* transposeGraph(Graph* G)
         Vertex* w = G->adjLists[v];
         while (w) 
         {
-            addEdge(GT, w->vertex, v, 0);
+            addEdge(GT, w->vertex, v, 0, 1);
             w = w->next;
         }
     }
@@ -165,7 +165,7 @@ int main(int argc, char *argv[])
     for (int count = 0; count < numArestas; count++)
     {
         fscanf(entrada, "%d%d", &v, &w);
-        addEdge(G, v-1, w-1, 0);
+        addEdge(G, v-1, w-1, 0, 1);
     }
     
     /* CHAMANDO O ALGORITMO */

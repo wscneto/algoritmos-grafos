@@ -129,8 +129,8 @@ int main(int argc, char* argv[])
     {
         int src, dest, cost;
         fscanf(inputFile, "%d %d %d", &src, &dest, &cost);
-        addEdge(graph, src - 1, dest - 1, cost);
-        addEdge(graph, dest - 1, src - 1, cost);
+        addEdge(graph, src - 1, dest - 1, cost, 0);
+        //addEdge(graph, dest - 1, src - 1, cost);
     }
 
     primMST(graph, origin, outputFile, printSolution);
