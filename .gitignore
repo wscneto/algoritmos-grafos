@@ -15,5 +15,5 @@ build
 *.app
 *.bin
 
-# Input / Output files
-*.dat
+# Output files
+arquivo-saida.dat
