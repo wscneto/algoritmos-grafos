@@ -1,11 +1,54 @@
-<h1>Algoritmos de Grafos</h1>
+# Algoritmos de Grafos
 
-<h3><strong>Professor:</strong> <a href="https://ic.ufal.br/professor/rian/">Rian Gabriel Santos Pinheiro, D.Sc.</a></h3> 
+**Professor:** [Rian Gabriel Santos Pinheiro, D.Sc.](https://ic.ufal.br/professor/rian/)
 
-<h3><strong>Equipe:</strong></h3>
-<ul>
-    <li>John Wallex Kennedy Moreira Silva</li>
-    <li>Walter Soares Costa Neto</li>
-</ul>
+**Equipe:**
 
-<p>Implementação de 5 algoritmos de grafos em C. Requisitado pela disciplina de Teoria dos Grafos.</p>
+-   John Wallex Kennedy Moreira Silva
+-   Walter Soares Costa Neto
+
+Implementação de 5 algoritmos de grafos em C. Requisitado pela disciplina de Teoria dos Grafos.
+Os algoritmos solicitados pelo professor foram: Dijkstra, Prim, Kruskal, e Kosaraju. Além desses, nós também implementamos o algoritmo de Bellman-Ford.
+
+Cada algoritmo possui seu próprio Makefile para compilação e execução.
+
+## Instruções
+
+Primeiro, copie o repositório para sua máquina local:
+
+```bash
+git clone https://github.com/wscneto/algoritmos-grafos.git
+cd algoritmos-grafos
+```
+
+### Compilação e execução com Makefile
+
+Para a compilação, navegue para o diretório do algoritmo que deseja compilar:
+
+```bash
+cd <nome-do-algoritmo>
+```
+
+Então execute:
+
+```bash
+make
+```
+
+Isso criará o arquivo binário do algoritmo `<nome-do-algoritmo>` (e.g. dijkstra, bellman, kruskal).
+
+Para executar o binário:
+
+```bash
+make run
+```
+
+Esse comando executará o algoritmo em questão a partir de um arquivo que contém as entradas do grafo. Cada algoritmo já possui um arquivo de entrada como exemplo, chamado `arquivo-entrada.dat`.
+
+### Bateria de testes
+
+Para executar a bateria de testes, compile cada um dos algoritmos e copie os binários gerados para a pasta `Bat1`
+
+```bash
+mv <nome-do-algoritmo> ../../Bat1/
+```
