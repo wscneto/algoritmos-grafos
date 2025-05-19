@@ -21,7 +21,7 @@ O algoritmo de Kosaraju realiza duas buscas em profundidade (DFS) e uma transpos
 ```bash
 make
 ou
-gcc -o kosaraju kosaraju.c ../../src/graph.c ../../src/stack.c
+gcc -o kosaraju kosaraju.c ../headers/graph.c ../headers/stack.c
 ```
 
 ### 🏃 Execução

@@ -4,14 +4,14 @@ Este projeto implementa o algoritmo de Dijkstra para encontrar os menores caminh
 
 ## 📌 Compilação
 
-Certifique-se de ter os arquivos `graph.h`, `heap.h` e suas respectivas implementações disponíveis no diretório `include` e `src`.
+Certifique-se de ter os arquivos `graph.h`, `heap.h` e suas respectivas implementações disponíveis nos diretórios `include` e `src/headers`.
 
 Compile com:
 
 ```bash
 make
 ou
-gcc -o dijkstra dijkstra.c ../../src/graph.c ../../src/heap.c
+gcc -o dijkstra dijkstra.c ../headers/graph.c ../headers/heap.c
 ```
 
 ## 🚀 Execução
