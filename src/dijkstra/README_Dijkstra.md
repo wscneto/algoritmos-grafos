@@ -24,10 +24,10 @@ ou
 
 ### Parâmetros
 
-- `-h`: Mostra a ajuda.
-- `-f <arquivo_entrada>`: Caminho para o arquivo contendo o grafo.
-- `-i <vertice_inicial>`: Vértice de origem para iniciar o algoritmo (indexado a partir de 1).
-- `-o <arquivo_saida>` (opcional): Caminho do arquivo onde o resultado será salvo.
+-   `-h`: Mostra a ajuda.
+-   `-f <arquivo_entrada>`: Caminho para o arquivo contendo o grafo.
+-   `-i <vertice_inicial>`: Vértice de origem para iniciar o algoritmo (indexado a partir de 1).
+-   `-o <arquivo_saida>` (opcional): Caminho do arquivo onde o resultado será salvo.
 
 ## 📝 Formato do Arquivo de Entrada
 
@@ -42,9 +42,10 @@ vm wm cm
 ```
 
 Onde:
-- `n` é o número de vértices
-- `m` é o número de arestas
-- Cada linha `vi wi ci` representa uma aresta do vértice `vi` ao vértice `wi` com custo `ci`.
+
+-   `n` é o número de vértices
+-   `m` é o número de arestas
+-   Cada linha `vi wi ci` representa uma aresta do vértice `vi` ao vértice `wi` com custo `ci`.
 
 Os vértices devem estar indexados a partir de 1.
 
@@ -61,6 +62,7 @@ Se um vértice for inalcançável, sua distância será representada por `-1`.
 ## 📚 Exemplo de Uso
 
 **Entrada(grafo.txt):**
+
 ```
 6 8
 1 2 5
@@ -74,11 +76,13 @@ Se um vértice for inalcançável, sua distância será representada por `-1`.
 ```
 
 **Comando:**
+
 ```bash
 ./dijkstra -f grafo.txt -i 1 -o resultado.txt
 ```
 
 **Saída(resultado.txt):**
+
 ```
 1:0 2:3 3:4 4:2 5:10 6:3
 ```
@@ -87,8 +91,8 @@ Se um vértice for inalcançável, sua distância será representada por `-1`.
 
 ## 📌 Observações
 
-- Os vértices são numerados a partir de **1** na entrada e saída.
-- As arestas são consideradas **não direcionadas**.
+-   Os vértices são numerados a partir de **1** na entrada e saída.
+-   As arestas são consideradas **não direcionadas**.
 
 ---
 
