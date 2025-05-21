@@ -2,7 +2,7 @@
 
 CC = gcc
 CFLAGS = -Wall -O2
-TARGET = dijkstra.bin
+TARGET = dijkstra
 SRC = dijkstra.c
 GRAPH_SRC = ../headers/graph.c  
 HEAP_SRC = ../headers/heap.c  
