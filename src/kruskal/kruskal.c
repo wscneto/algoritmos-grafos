@@ -1,46 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct
-{
-    int src;
-    int dest;
-    int weight;
-} Edge;
-
-typedef struct
-{
-    int parent;
-    int rank;
-} Subset;
-
-int compareEdges(const void* a, const void* b)
-{
-    return ((Edge*)a)->weight - ((Edge*)b)->weight;
-}
-
-int find(Subset subsets[], int i)
-{
-    if (subsets[i].parent != i)
-        subsets[i].parent = find(subsets, subsets[i].parent);
-    return subsets[i].parent;
-}
-
-void unionSets(Subset subsets[], int x, int y)
-{
-    int xroot = find(subsets, x);
-    int yroot = find(subsets, y);
-    if(subsets[xroot].rank < subsets[yroot].rank)
-        subsets[xroot].parent = yroot;
-    else if(subsets[xroot].rank > subsets[yroot].rank)
-        subsets[yroot].parent = xroot;
-    else
-    {
-        subsets[yroot].parent = xroot;
-        subsets[xroot].rank++;
-    }
-}
+#include "../../include/edge.h"
+#include "../../include/subset.h"
 
 void kruskalMST(int V, int E, Edge* edges, FILE* output, int printSolution)
 {
