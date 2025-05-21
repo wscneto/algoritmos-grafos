@@ -2,7 +2,7 @@
 
 CC = gcc
 CFLAGS = -Wall -O2
-TARGET = kruskal
+TARGET = kruskal.bin
 SRC = kruskal.c
 EDGE_SRC = ../headers/edge.c
 SUBSET_SRC = ../headers/subset.c

@@ -2,7 +2,7 @@
 
 CC = gcc
 CFLAGS = -Wall -O2
-TARGET = bellman
+TARGET = bellman.bin
 SRC = bellman.c
 GRAPH_SRC = ../headers/graph.c 
 
