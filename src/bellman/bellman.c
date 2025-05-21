@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #include "../../include/graph.h"
-#define INFINITY 999999
+#define INFINITY INT_MAX
 
 void bellman(Graph *G, int origem, FILE *saida)
 {
@@ -73,7 +74,7 @@ int main(int argc, char *argv[])
 {
     char *inputFile = NULL;
     char *outputFile = NULL;
-    int origem = -1;
+    int origem = 1;
 
     for (int i = 1; i < argc; i++)
     {
@@ -87,9 +88,9 @@ int main(int argc, char *argv[])
         else if (strcmp(argv[i], "-i") == 0 && i + 1 < argc) origem = atoi(argv[++i]);
     }
 
-    if (inputFile == NULL || origem == -1)
+    if (inputFile == NULL || origem < 1)
     {
-        printf("Erro: você deve fornecer o arquivo de entrada (-f) e o vértice inicial (-i).\n");
+        printf("Erro: você deve fornecer o arquivo de entrada (-f).\n");
         exit(EXIT_FAILURE);
     }
 
