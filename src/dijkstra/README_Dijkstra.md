@@ -1,6 +1,6 @@
 # Algoritmo de Dijkstra com Min Heap
 
-Este projeto implementa o algoritmo de Dijkstra para encontrar os menores caminhos a partir de um vértice de origem em um grafo direcionado e ponderado, utilizando uma fila de prioridade baseada em Min Heap.
+Este projeto implementa o algoritmo de Dijkstra para encontrar os menores caminhos a partir de um vértice de origem em um grafo, utilizando uma fila de prioridade baseada em Min Heap.
 
 ## 📌 Compilação
 

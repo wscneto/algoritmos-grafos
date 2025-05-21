@@ -86,9 +86,9 @@ int main(int argc, char *argv[])
         else if (strcmp(argv[i], "-i") == 0 && i + 1 < argc) origem = atoi(argv[++i]);
     }
 
-    if (inputFile == NULL || origem == -1)
+    if (inputFile == NULL || origem < 1)
     {
-        printf("Erro: você deve fornecer o arquivo de entrada (-f) e o vértice inicial (-i).\n");
+        printf("Erro: você deve fornecer o arquivo de entrada (-f).\n");
         exit(EXIT_FAILURE);
     }
 
