@@ -50,5 +50,5 @@ Esse comando executará o algoritmo em questão a partir de um arquivo que cont�
 Para executar a bateria de testes, compile cada um dos algoritmos e copie os binários gerados para a pasta `Bat1`
 
 ```bash
-mv <nome-do-algoritmo> ../../Bat1/
+cp <nome-do-algoritmo> ../../Bat1/
 ```
