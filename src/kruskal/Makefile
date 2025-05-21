@@ -4,13 +4,15 @@ CC = gcc
 CFLAGS = -Wall -O2
 TARGET = kruskal.bin
 SRC = kruskal.c
+EDGE_SRC = ../headers/edge.c
+SUBSET_SRC = ../headers/subset.c
 
 .PHONY: all clean help
 
 all: $(TARGET)
 
-$(TARGET): $(SRC)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
+$(TARGET): $(SRC) $(EDGE_SRC) $(SUBSET_SRC)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(EDGE_SRC) $(SUBSET_SRC)
 
 run: $(TARGET)
 	./$(TARGET) -f ./arquivo-entrada.dat -o ./arquivo-saida.dat
