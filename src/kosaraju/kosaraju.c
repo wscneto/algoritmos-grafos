@@ -152,28 +152,42 @@ int main(int argc, char *argv[])
         saida = fopen(outputFile, "w");
         if (!saida)
         {
-            printf("Erro ao abrir arquivo de saída");
+            printf("Erro ao abrir arquivo de saída\n");
             fclose(entrada);
             exit(EXIT_FAILURE);
         }
     }
 
     int numVertices, numArestas, v, w;
-    fscanf(entrada, "%d %d", &numVertices, &numArestas);
 
-    Graph *G = createGraph(numVertices);
-    for (int count = 0; count < numArestas; count++)
+    // Verifica se fscanf() funcionou corretamente
+    if(fscanf(entrada, "%d %d", &numVertices, &numArestas) == 2)
     {
-        fscanf(entrada, "%d%d", &v, &w);
-        addEdge(G, v-1, w-1, 0, 1);
-    }
-    
-    /* CHAMANDO O ALGORITMO */
-    kosaraju(G, saida);
+        Graph *G = createGraph(numVertices);
+        for (int count = 0; count < numArestas; count++)
+        {
+            if(fscanf(entrada, "%d%d", &v, &w) == 2) addEdge(G, v-1, w-1, 0, 1);
+            else
+            {
+                printf("Erro: fscanf() falhou ao receber instâncias de arestas.\n");
+                fclose(entrada);
+                exit(EXIT_FAILURE);
+            }
+        }
+        
+        /* CHAMANDO O ALGORITMO */
+        kosaraju(G, saida);
 
-    deleteGraph(G);
-    fclose(entrada);
-    if (saida != stdout) fclose(saida);
+        deleteGraph(G);
+        fclose(entrada);
+        if (saida != stdout) fclose(saida);
+    }
+    else
+    {
+        printf("Erro: fscanf() falhou ao receber número de vértices e número de arestas.\n");
+        fclose(entrada);
+        exit(EXIT_FAILURE);
+    }
 
     return 0;
 }

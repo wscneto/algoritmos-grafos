@@ -114,22 +114,35 @@ int main(int argc, char *argv[])
     }
 
     int numVertices, numArestas, v, w, cost;
-    fscanf(entrada, "%d %d", &numVertices, &numArestas);
 
-    Graph *G = createGraph(numVertices);
-    
-    for (int count = 0; count < numArestas; count++)
+    if(fscanf(entrada, "%d %d", &numVertices, &numArestas) == 2)
     {
-        fscanf(entrada, "%d%d%d", &v, &w, &cost);
-        addEdge(G, v-1, w-1, cost, 1);
+        Graph *G = createGraph(numVertices);
+    
+        for (int count = 0; count < numArestas; count++)
+        {
+            if(fscanf(entrada, "%d%d%d", &v, &w, &cost) == 3) addEdge(G, v-1, w-1, cost, 1);
+            else
+            {
+                printf("Erro: fscanf() falhou ao receber instâncias de arestas e pesos.\n");
+                fclose(entrada);
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        /* CHAMANDO O ALGORITMO */
+        bellman(G, origem - 1, saida);
+
+        deleteGraph(G);
+        fclose(entrada);
+        if (saida != stdout) fclose(saida);
     }
-
-    /* CHAMANDO O ALGORITMO */
-    bellman(G, origem - 1, saida);
-
-    deleteGraph(G);
-    fclose(entrada);
-    if (saida != stdout) fclose(saida);
+    else
+    {
+        printf("Erro: fscanf() falhou ao receber número de vértices e número de arestas.\n");
+        fclose(entrada);
+        exit(EXIT_FAILURE);
+    }
 
     return 0;
 }

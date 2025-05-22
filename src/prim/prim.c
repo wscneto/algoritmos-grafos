@@ -122,22 +122,36 @@ int main(int argc, char* argv[])
     }
 
     int V, E;
-    fscanf(inputFile, "%d %d", &V, &E);
 
-    Graph* graph = createGraph(V);
-
-    for(int i = 0; i < E; i++)
+    // Verifica se fscanf() funcionou corretamente
+    if(fscanf(inputFile, "%d %d", &V, &E) == 2)
     {
-        int src, dest, cost;
-        fscanf(inputFile, "%d %d %d", &src, &dest, &cost);
-        addEdge(graph, src - 1, dest - 1, cost, 0);
+        Graph* graph = createGraph(V);
+
+        for(int i = 0; i < E; i++)
+        {
+            int src, dest, cost;
+            if(fscanf(inputFile, "%d %d %d", &src, &dest, &cost) == 3) addEdge(graph, src - 1, dest - 1, cost, 0);
+            else
+            {
+                printf("Erro: fscanf() falhou ao receber instâncias de arestas e pesos.\n");
+                fclose(inputFile);
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        primMST(graph, origin, outputFile, printSolution);
+
+        deleteGraph(graph);
+        fclose(inputFile);
+        if(outputFile != stdout) fclose(outputFile);
     }
-
-    primMST(graph, origin, outputFile, printSolution);
-
-    deleteGraph(graph);
-    fclose(inputFile);
-    if(outputFile != stdout) fclose(outputFile);
+    else
+    {
+        printf("Erro: fscanf() falhou ao receber número de vértices e número de arestas.\n");
+        fclose(inputFile);
+        exit(EXIT_FAILURE);
+    }
 
     return 0;
 }

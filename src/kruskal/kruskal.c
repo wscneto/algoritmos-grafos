@@ -98,24 +98,42 @@ int main(int argc, char* argv[])
     }
 
     int V, E;
-    fscanf(inputFile, "%d %d", &V, &E);
-    Edge* edges = malloc(E * sizeof(Edge));
 
-    for(int i = 0; i < E; i++)
+    // Verifica se fscanf() funcionou corretamente
+    if(fscanf(inputFile, "%d %d", &V, &E) == 2)
     {
-        int u, v, w;
-        fscanf(inputFile, "%d %d %d", &u, &v, &w);
-        u--; v--;
-        edges[i].src = u;
-        edges[i].dest = v;
-        edges[i].weight = w;
+        Edge* edges = malloc(E * sizeof(Edge));
+
+        for(int i = 0; i < E; i++)
+        {
+            int u, v, w;
+            if(fscanf(inputFile, "%d %d %d", &u, &v, &w) == 3)
+            {
+                u--; v--;
+                edges[i].src = u;
+                edges[i].dest = v;
+                edges[i].weight = w;
+            }
+            else
+            {
+                printf("Erro: fscanf() falhou ao receber instâncias de arestas e pesos.\n");
+                fclose(inputFile);
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        kruskalMST(V, E, edges, outputFile, printSolution);
+
+        free(edges);
+        fclose(inputFile);
+        if (outputFile != stdout) fclose(outputFile);
     }
-
-    kruskalMST(V, E, edges, outputFile, printSolution);
-
-    free(edges);
-    fclose(inputFile);
-    if (outputFile != stdout) fclose(outputFile);
+    else
+    {
+        printf("Erro: fscanf() falhou ao receber número de vértices e número de arestas.\n");
+        fclose(inputFile);
+        exit(EXIT_FAILURE);
+    }
 
     return 0;
 }
