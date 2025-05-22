@@ -23,10 +23,10 @@ cd algoritmos-grafos
 
 ### Compilação e execução com Makefile
 
-Para a compilação, navegue para o diretório do algoritmo que deseja compilar:
+Para a compilação, navegue para o diretório `src/` e depois para o diretório do algoritmo que deseja compilar:
 
 ```bash
-cd <nome-do-algoritmo>
+cd src/<nome-do-algoritmo>
 ```
 
 Então execute:
