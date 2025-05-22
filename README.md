@@ -68,13 +68,13 @@ cd src/bellman/
 make
 ```
 
-Depois copie o binário para a pasta Bat_Bellman:
+Depois copie o binário para a pasta `Bat_Bellman`:
 
 ```bash
 cp bellman.bin ../../Bat_Bellman/
 ```
 
-Agora execute o script de testes:
+Agora navegue para `Bat_Bellman` e execute o script de testes:
 
 ```bash
 bash Bat_Bellman.sh
