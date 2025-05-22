@@ -35,7 +35,7 @@ Então execute:
 make
 ```
 
-Isso criará o arquivo binário do algoritmo `<nome-do-algoritmo>` (e.g. dijkstra, bellman, kruskal).
+Isso criará o arquivo binário do algoritmo `<nome-do-algoritmo>.bin` (e.g. dijkstra.bin, bellman.bin, kruskal.bin).
 
 Para executar o binário:
 
