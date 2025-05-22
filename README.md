@@ -47,8 +47,35 @@ Esse comando executará o algoritmo em questão a partir de um arquivo que cont�
 
 ### Bateria de testes
 
-Para executar a bateria de testes, compile cada um dos algoritmos e copie os binários gerados para a pasta `Bat1`
+Para executar a bateria de testes, compile cada um dos algoritmos (exceto Bellman) e copie os binários gerados para a pasta `Bat1`:
 
 ```bash
 cp <nome-do-algoritmo> ../../Bat1/
+```
+
+Agora execute o script de testes:
+
+```bash
+bash Bat1.sh
+```
+
+### Bateria de testes do Bellman-Ford
+
+Para executar a bateria de testes do algoritmo Bellman-Ford, primeiro compile o código:
+
+```bash
+cd src/bellman/
+make
+```
+
+Depois copie o binário para a pasta Bat_Bellman:
+
+```bash
+cp bellman.bin ../../Bat_Bellman/
+```
+
+Agora execute o script de testes:
+
+```bash
+bash Bat_Bellman.sh
 ```
